@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_20_215508) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_20_231146) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,27 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_20_215508) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "bills", force: :cascade do |t|
+    t.decimal "total_amount"
+    t.string "status"
+    t.bigint "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_bills_on_order_id"
+  end
+
+  create_table "coupon_usages", force: :cascade do |t|
+    t.datetime "date"
+    t.bigint "customer_id", null: false
+    t.bigint "order_id", null: false
+    t.bigint "coupon_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coupon_id"], name: "index_coupon_usages_on_coupon_id"
+    t.index ["customer_id"], name: "index_coupon_usages_on_customer_id"
+    t.index ["order_id"], name: "index_coupon_usages_on_order_id"
+  end
+
   create_table "coupons", force: :cascade do |t|
     t.string "code"
     t.decimal "discount_amount"
@@ -84,6 +105,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_20_215508) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "feedbacks", force: :cascade do |t|
+    t.integer "rating"
+    t.text "comment"
+    t.datetime "date"
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_feedbacks_on_customer_id"
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -95,6 +126,26 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_20_215508) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "inventories", force: :cascade do |t|
+    t.string "ingradient_name"
+    t.integer "stock_quantity"
+    t.integer "threshold"
+    t.integer "reorder_quantity"
+    t.datetime "last_updated"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "menu_inventories", force: :cascade do |t|
+    t.integer "quantity_required"
+    t.bigint "menu_id", null: false
+    t.bigint "inventory_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inventory_id"], name: "index_menu_inventories_on_inventory_id"
+    t.index ["menu_id"], name: "index_menu_inventories_on_menu_id"
+  end
+
   create_table "menus", force: :cascade do |t|
     t.string "dish_name"
     t.string "category"
@@ -103,6 +154,65 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_20_215508) do
     t.boolean "availble"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "order_details", force: :cascade do |t|
+    t.integer "quantity"
+    t.decimal "price"
+    t.text "note"
+    t.string "status"
+    t.bigint "order_id", null: false
+    t.bigint "menu_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["menu_id"], name: "index_order_details_on_menu_id"
+    t.index ["order_id"], name: "index_order_details_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.datetime "time"
+    t.decimal "total_amount"
+    t.decimal "discount_amount"
+    t.string "status"
+    t.bigint "customer_id", null: false
+    t.bigint "table_id", null: false
+    t.bigint "employee_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
+    t.index ["employee_id"], name: "index_orders_on_employee_id"
+    t.index ["table_id"], name: "index_orders_on_table_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "method"
+    t.string "amount"
+    t.datetime "date"
+    t.bigint "bill_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bill_id"], name: "index_payments_on_bill_id"
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.date "date"
+    t.time "time"
+    t.integer "number_of_guest"
+    t.string "status"
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_reservations_on_customer_id"
+  end
+
+  create_table "tables", force: :cascade do |t|
+    t.integer "number"
+    t.integer "capacity"
+    t.string "status"
+    t.bigint "reservation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reservation_id"], name: "index_tables_on_reservation_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -122,4 +232,19 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_20_215508) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bills", "orders"
+  add_foreign_key "coupon_usages", "coupons"
+  add_foreign_key "coupon_usages", "customers"
+  add_foreign_key "coupon_usages", "orders"
+  add_foreign_key "feedbacks", "customers"
+  add_foreign_key "menu_inventories", "inventories"
+  add_foreign_key "menu_inventories", "menus"
+  add_foreign_key "order_details", "menus"
+  add_foreign_key "order_details", "orders"
+  add_foreign_key "orders", "customers"
+  add_foreign_key "orders", "employees"
+  add_foreign_key "orders", "tables"
+  add_foreign_key "payments", "bills"
+  add_foreign_key "reservations", "customers"
+  add_foreign_key "tables", "reservations"
 end

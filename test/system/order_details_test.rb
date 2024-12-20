@@ -14,7 +14,7 @@ class OrderDetailsTest < ApplicationSystemTestCase
     visit order_details_url
     click_on "New order detail"
 
-    fill_in "Memu", with: @order_detail.memu_id
+    fill_in "Menu", with: @order_detail.menu_id
     fill_in "Note", with: @order_detail.note
     fill_in "Order", with: @order_detail.order_id
     fill_in "Price", with: @order_detail.price
@@ -30,7 +30,7 @@ class OrderDetailsTest < ApplicationSystemTestCase
     visit order_detail_url(@order_detail)
     click_on "Edit this order detail", match: :first
 
-    fill_in "Memu", with: @order_detail.memu_id
+    fill_in "Menu", with: @order_detail.menu_id
     fill_in "Note", with: @order_detail.note
     fill_in "Order", with: @order_detail.order_id
     fill_in "Price", with: @order_detail.price

@@ -6,7 +6,7 @@ one:
   note: MyText
   status: MyString
   order: one
-  memu: one
+  menu: one
 
 two:
   quantity: 1
@@ -14,4 +14,4 @@ two:
   note: MyText
   status: MyString
   order: two
-  memu: two
+  menu: two

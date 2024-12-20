@@ -1,10 +1,10 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  resources :order_details
   resources :payments
   resources :bills
   resources :menu_inventories
-  resources :order_details
   resources :coupon_usages
   resources :orders
   resources :tables

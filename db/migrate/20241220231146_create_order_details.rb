@@ -6,7 +6,7 @@ class CreateOrderDetails < ActiveRecord::Migration[7.0]
       t.text :note
       t.string :status
       t.references :order, null: false, foreign_key: true
-      t.references :memu, null: false, foreign_key: true
+      t.references :menu, null: false, foreign_key: true
 
       t.timestamps
     end

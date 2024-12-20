@@ -17,7 +17,7 @@ class OrderDetailsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create order_detail" do
     assert_difference("OrderDetail.count") do
-      post order_details_url, params: { order_detail: { memu_id: @order_detail.memu_id, note: @order_detail.note, order_id: @order_detail.order_id, price: @order_detail.price, quantity: @order_detail.quantity, status: @order_detail.status } }
+      post order_details_url, params: { order_detail: { menu_id: @order_detail.menu_id, note: @order_detail.note, order_id: @order_detail.order_id, price: @order_detail.price, quantity: @order_detail.quantity, status: @order_detail.status } }
     end
 
     assert_redirected_to order_detail_url(OrderDetail.last)
@@ -34,7 +34,7 @@ class OrderDetailsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update order_detail" do
-    patch order_detail_url(@order_detail), params: { order_detail: { memu_id: @order_detail.memu_id, note: @order_detail.note, order_id: @order_detail.order_id, price: @order_detail.price, quantity: @order_detail.quantity, status: @order_detail.status } }
+    patch order_detail_url(@order_detail), params: { order_detail: { menu_id: @order_detail.menu_id, note: @order_detail.note, order_id: @order_detail.order_id, price: @order_detail.price, quantity: @order_detail.quantity, status: @order_detail.status } }
     assert_redirected_to order_detail_url(@order_detail)
   end
 
