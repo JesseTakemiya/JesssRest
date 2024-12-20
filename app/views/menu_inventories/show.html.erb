@@ -1,0 +1,29 @@
+<div class="max-w-3xl mx-auto px-4">
+  <div class="flex items-center justify-between">
+    <h1 class="flex-1 font-bold text-3xl">Menu_inventory</h1>
+
+    <div class="flex-wrap lg:flex items-center lg:space-x-3">
+      <%= link_to menu_inventories_path, class: button_class(theme: "transparent") do %>
+      All Menu_inventories
+      <% end %>
+      <%= link_to edit_menu_inventory_path(@menu_inventory), class: button_class(theme:"primary") do %>
+      Edit
+      <% end %>
+    </div>
+  </div>
+
+  <ul class="text-slate-700">
+      <li>
+        <p class="font-semibold">Quantity required:</p>
+        <p><%= @menu_inventory.quantity_required %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Menu:</p>
+        <p><%= @menu_inventory.menu %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Inventory:</p>
+        <p><%= @menu_inventory.inventory %></p>
+      </li>
+  </ul>
+</div>

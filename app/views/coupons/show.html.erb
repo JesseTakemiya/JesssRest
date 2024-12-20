@@ -1,0 +1,41 @@
+<div class="max-w-3xl mx-auto px-4">
+  <div class="flex items-center justify-between">
+    <h1 class="flex-1 font-bold text-3xl">Coupon</h1>
+
+    <div class="flex-wrap lg:flex items-center lg:space-x-3">
+      <%= link_to coupons_path, class: button_class(theme: "transparent") do %>
+      All Coupons
+      <% end %>
+      <%= link_to edit_coupon_path(@coupon), class: button_class(theme:"primary") do %>
+      Edit
+      <% end %>
+    </div>
+  </div>
+
+  <ul class="text-slate-700">
+      <li>
+        <p class="font-semibold">Code:</p>
+        <p><%= @coupon.code %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Discount amount:</p>
+        <p><%= @coupon.discount_amount %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Start date:</p>
+        <p><%= @coupon.start_date %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Expiration date:</p>
+        <p><%= @coupon.expiration_date %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Usage limit:</p>
+        <p><%= @coupon.usage_limit %></p>
+      </li>
+      <li>
+        <p class="font-semibold">Active:</p>
+        <p><%= @coupon.active %></p>
+      </li>
+  </ul>
+</div>

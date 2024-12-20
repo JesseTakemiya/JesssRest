@@ -1,0 +1,42 @@
+<%= form_with(model: inventory) do |form| %>
+<% if inventory.errors.any? %>
+<div id="error_explanation" class="bg-red-50 p-6 rounded text-red-800">
+  <h2 class="text-lg font-semibold mb-3"><%= pluralize(inventory.errors.count, "error") %> prohibited this inventory from being saved:</h2>
+
+  <ul class="list-disc leading-relaxed">
+    <% inventory.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+  <div class="mb-6">
+        <%= form.label :ingradient_name, class: label_class %>
+          <%= form.text_field :ingradient_name, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :stock_quantity, class: label_class %>
+          <%= form.number_field :stock_quantity, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :threshold, class: label_class %>
+          <%= form.number_field :threshold, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :reorder_quantity, class: label_class %>
+          <%= form.number_field :reorder_quantity, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :last_updated, class: label_class %>
+          <%= form.datetime_field :last_updated, class: input_class %>
+      </div>
+
+<%= form.submit class: button_class(theme: 'primary') %>
+
+<% if inventory.persisted? %>
+<%= link_to "Cancel", inventory, class: "text-neutral-700 underline inline-block ml-3" %>
+<% else %>
+<%= link_to "Cancel", inventories_path, class:  "text-neutral-700 underline inline-block ml-3" %>
+<% end %>
+<% end %>

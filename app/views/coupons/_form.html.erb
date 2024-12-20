@@ -1,0 +1,46 @@
+<%= form_with(model: coupon) do |form| %>
+<% if coupon.errors.any? %>
+<div id="error_explanation" class="bg-red-50 p-6 rounded text-red-800">
+  <h2 class="text-lg font-semibold mb-3"><%= pluralize(coupon.errors.count, "error") %> prohibited this coupon from being saved:</h2>
+
+  <ul class="list-disc leading-relaxed">
+    <% coupon.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+  <div class="mb-6">
+        <%= form.label :code, class: label_class %>
+          <%= form.text_field :code, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :discount_amount, class: label_class %>
+          <%= form.text_field :discount_amount, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :start_date, class: label_class %>
+          <%= form.datetime_field :start_date, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :expiration_date, class: label_class %>
+          <%= form.datetime_field :expiration_date, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :usage_limit, class: label_class %>
+          <%= form.number_field :usage_limit, class: input_class %>
+      </div>
+  <div class="mb-6">
+        <%= form.label :active, class: label_class %>
+          <%= form.check_box :active, class: input_class %>
+      </div>
+
+<%= form.submit class: button_class(theme: 'primary') %>
+
+<% if coupon.persisted? %>
+<%= link_to "Cancel", coupon, class: "text-neutral-700 underline inline-block ml-3" %>
+<% else %>
+<%= link_to "Cancel", coupons_path, class:  "text-neutral-700 underline inline-block ml-3" %>
+<% end %>
+<% end %>
